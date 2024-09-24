@@ -52,7 +52,7 @@ node* order_open(int id, node **windows) {
     node* cur = *windows;
     *windows = createNewNode(id);
     (*windows)->next = cur;
-    printf("%d", (*windows)->data);
+    printf("%d\n", (*windows)->data);
 
 
     // if ((*windows)== NULL) {
@@ -89,7 +89,7 @@ node* order_close(int id, node **windows)
         {
         temp = cur;
         (*windows) = (*windows)->next;
-        printf("%d", (*windows)->data);
+        printf("%d\n", (*windows)->data);
         free(temp);
         }
     }
@@ -103,7 +103,7 @@ node* order_close(int id, node **windows)
         if((cur->next->next)!=NULL)
         {
             temp = cur->next;
-            printf("%d", cur->data);
+            printf("%d\n", cur->data);
             cur->next = cur->next->next;
             free(temp);
         }
@@ -112,7 +112,7 @@ node* order_close(int id, node **windows)
         {
             free(cur->next);
             cur->next = NULL;
-            printf("%d", cur->data);
+            printf("%d\n", cur->data);
 
         }
     }
@@ -128,7 +128,7 @@ node* order_switch(int id, node **windows)
 
  if((cur->data) == id)
  {
-    printf("%d", cur->data);
+    printf("%d\n", cur->data);
     return *windows;
  }
 
@@ -142,7 +142,7 @@ node* order_switch(int id, node **windows)
     found->next = temp;
     *windows = found;
 
-    printf("%d", (*windows)->data);
+    printf("%d\n", (*windows)->data);
 
     return *windows;
 
