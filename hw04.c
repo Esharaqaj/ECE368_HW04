@@ -112,7 +112,7 @@ node* order_close(int id, node **windows)
         {
             free(cur->next);
             cur->next = NULL;
-            printf("%d\n", cur->data);
+            printf("%d", cur->data);
 
         }
     }
