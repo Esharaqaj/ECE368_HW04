@@ -82,6 +82,7 @@ node* order_close(int id, node **windows)
         if(cur->next == NULL)
         {
             free(cur);
+            *windows = NULL;
             return(*windows);
         }
         else 
