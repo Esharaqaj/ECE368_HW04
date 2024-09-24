@@ -12,6 +12,7 @@ SOURCE_FILES=$(FILE_NAME)
 EXECUTABLE=a4
 EXECUTABLE_GCOV=$(EXECUTABLE)_gcov
 ALL_EXECUTABLES=-o $(EXECUTABLE) $(SOURCE_FILES) $(CFLAGS)
+VAL = valgrind --tool=memcheck --log-file=memcheck.txt --leak-check=full --verbose
 
 #RULES
 $(EXECUTABLE): $(FILE_NAME) $(HEADER_FILE)
@@ -29,3 +30,5 @@ gdb: $(EXECUTABLE)
 	gdb $(EXECUTABLE)
 clean:
 	rm -f $(TEXT_FILE) $(EXECUTABLE)
+testmemory: $(EXECUTABLE)
+	$(VAL) ./$(EXECUTABLE) < $(INPUT_FILE) > $(TEXT_FILE)

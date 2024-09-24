@@ -21,6 +21,6 @@ node* order_open(int, node **);
 node* order_switch(int, node **); 
 node* order_close(int, node **);
 node* createNewNode(int);
-void freeList(node *);
+void freeList(node **);
 
 #endif

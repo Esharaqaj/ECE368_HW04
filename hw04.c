@@ -7,9 +7,9 @@ int main()
 {
     int id = 0;
     char order[MAX_ORD];
-    node* windows = (node *)malloc(sizeof(node));
+    //node* windows = (node *)malloc(sizeof(node));
 
-    windows = NULL;
+    node* windows = NULL;
 
 
     while(scanf("%s %d", order, &id)!= EOF)
@@ -35,7 +35,7 @@ int main()
         }
     }
     
-
+    //freeList(&windows);
     return EXIT_SUCCESS;
 }
 
@@ -82,6 +82,7 @@ node* order_close(int id, node **windows)
         if(cur->next == NULL)
         {
             free(cur);
+            return(*windows);
         }
         else 
         {
@@ -146,13 +147,13 @@ node* order_switch(int id, node **windows)
 
 }
 
-void freeList(node* windows)
+void freeList(node** windows)
 {
     node* temp;
-    while(windows != NULL)
+    while((*windows) != NULL)
     {
-        temp = windows;
-        windows = windows-> next;
+        temp = *windows;
+        *windows = (*windows)-> next;
         free(temp);
     }
 }
