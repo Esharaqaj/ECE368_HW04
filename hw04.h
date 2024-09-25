@@ -14,6 +14,7 @@ typedef struct node{
 void order_switch(int, node **); 
 void order_close(int, node **);
 void createNewNode(int, node**);
-void freeList(node **);
+static void print_windows(node** );
+static void freeList(node** );
 
 #endif

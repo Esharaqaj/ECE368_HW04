@@ -93,8 +93,7 @@ void order_switch(int id, node ** windows){
     (*windows) = temp;
 }
 
-static void freeList(node** windows)
-{
+static void freeList(node** windows){
     if((*windows)==NULL){return;}
     node* temp = *windows;
     while((temp)->next != NULL){
