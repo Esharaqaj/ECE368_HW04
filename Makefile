@@ -15,7 +15,7 @@ ALL_EXECUTABLES=-o $(EXECUTABLE) $(SOURCE_FILES) $(CFLAGS)
 VAL = valgrind --tool=memcheck --log-file=memcheck.txt --leak-check=full --verbose
 
 #RULES
-$(EXECUTABLE): $(FILE_NAME) $(HEADER_FILE)
+a4: $(FILE_NAME) 
 	$(CC) $(ALL_EXECUTABLES) 
 
 # .PHONY TARGET
