@@ -11,16 +11,9 @@ typedef struct node{
     struct node* next;
 }node;
 
-typedef struct header{
-    node* head;
-    node* tail;
-}header;
-
-
-node* order_open(int, node **);
-node* order_switch(int, node **); 
-node* order_close(int, node **);
-node* createNewNode(int);
+void order_switch(int, node **); 
+void order_close(int, node **);
+void createNewNode(int, node**);
 void freeList(node **);
 
 #endif
