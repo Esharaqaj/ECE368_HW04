@@ -30,5 +30,5 @@ gdb: $(EXECUTABLE)
 	gdb $(EXECUTABLE)
 clean:
 	rm -f $(TEXT_FILE) $(EXECUTABLE)
-testmemory: $(EXECUTABLE)
+valgrind: $(EXECUTABLE)
 	$(VAL) ./$(EXECUTABLE) < $(INPUT_FILE) > $(TEXT_FILE)

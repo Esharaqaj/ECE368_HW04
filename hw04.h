@@ -1,5 +1,5 @@
-#ifndef __HW02_H__
-#define __HW02_H__
+#ifndef __HW04_H__
+#define __HW04_H__
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -11,10 +11,10 @@ typedef struct node{
     struct node* next;
 }node;
 
-void order_switch(int, node **); 
-void order_close(int, node **);
-void createNewNode(int, node**);
-static void print_windows(node** );
-static void freeList(node** );
+node* order_open(int, node **);
+node* order_switch(int, node **); 
+node* order_close(int, node **);
+node* createNewNode(int);
+void freeList(node **);
 
 #endif

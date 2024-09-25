@@ -1,107 +1,136 @@
 #include "hw04.h"
-#define MAX_ORD 25
 
-static void print_windows(node** windows){
-    node* temp = *windows;
-    while(temp->next != NULL){
-        printf("%d\n", temp->data);
-        temp = temp->next;
-    }
-    printf("%d\n", temp->data);
-}
+#define MAX_ORD 8
 
-int main(){
+
+int main()
+{
     int id = 0;
     char order[MAX_ORD];
-
     node* windows = NULL;
 
-    while(scanf("%s %d", order, &id)!= EOF){
-        if(!(strcmp(order,"open"))){
-           createNewNode(id, &windows);
-        }
-        else if(!(strcmp(order,"switch"))){
-            order_switch(id, &windows);
-        }
-        else if(!(strcmp(order,"close"))){
-            order_close(id, &windows);
-        }
-        else if(!(strcmp(order, "print"))){
-            print_windows(&windows);
+
+    while(scanf("%s %d", order, &id)!= EOF)
+    {
+        if(!(strcmp(order,"open")))
+        {
+           windows = order_open(id, &windows);
         }
 
-        if(windows == NULL){
+        else if(!(strcmp(order,"switch")))
+        {
+            windows = order_switch(id, &windows);
+        }
+
+        else if(!(strcmp(order,"close")))
+        {
+            windows = order_close(id, &windows);
+        }
+
+        if(windows == NULL)
+        {
             return EXIT_SUCCESS;
         }
+
         else{
             printf("%d\n",windows->data);
         }
     }
-    freeList(&windows);
+    
+    //freeList(&windows);
     return EXIT_SUCCESS;
 }
 
-void createNewNode(int id, node** windows)
+node* createNewNode(int id)
 {
-    if(*windows == NULL){
-        *windows = malloc(sizeof(**windows));
-        (*windows)->next = NULL;
-        (*windows)->data = id;
-    }
-
-    else{
-        node* newNode = malloc(sizeof(node));
-        newNode->data = id;
-        newNode->next = (*windows);
-        *windows = newNode;
-    }
+    node* newNode = (node *)malloc(sizeof(node));
+    newNode->data = id;
+    newNode->next = NULL;
+return(newNode);
 }
 
-void order_close(int id, node** windows){
-    order_switch(id, windows);
-    node* temp = *windows;
-    if(temp->next == NULL){
+node* order_open(int id, node **windows) {
+    node* cur = *windows;
+    *windows = createNewNode(id);
+    (*windows)->next = cur;
+    return *windows;
+}
+
+node* order_close(int id, node **windows)
+{
+    node* temp;
+    node* cur = *windows;
+
+    if((cur->data) == id)
+    {
+        if(cur->next == NULL)
+        {
+            free(cur);
+            *windows = NULL;
+            return(*windows);
+        }
+        else 
+        {
+        temp = cur;
+        (*windows) = (*windows)->next;
         free(temp);
-        *windows = NULL;
-        return;
+        }
     }
-    (*windows) = temp->next;
-    free(temp);
-    temp = NULL;
+  
+    else {   
+        while((cur->next->data) != id)
+        {
+            cur = cur->next;
+        }
+
+        if((cur->next->next)!=NULL)
+        {
+            temp = cur->next;
+            cur->next = cur->next->next;
+            free(temp);
+        }
+
+        else
+        {
+            free(cur->next);
+            cur->next = NULL;
+        }
+    }
+
+    return(*windows);
 }
 
-void order_switch(int id, node ** windows){
-    if((*windows)->data == id){return;}
-    node* temp = *windows;
-    int id_index = 0;
-    while(temp->data != id){
-        temp = temp->next;
-        id_index++;
-    }
-    node* before_temp = *windows;
-    for(int i = id_index; i>1; i--){
-        before_temp = before_temp->next;
-    }
-    if(temp->next == NULL){
-        before_temp->next = NULL;
-        temp->next = *windows;
-        *windows = temp;
-        return;
-    }
-    before_temp->next = temp->next;
-    temp->next = *windows;
-    (*windows) = temp;
+node* order_switch(int id, node **windows)
+{
+ node* temp = *windows;
+ node* found;
+ node* cur = *windows;
+
+ if((cur->data) == id)
+ {
+    return *windows;
+ }
+
+ while((cur->next->data) != id)
+ {
+    cur = cur->next;
+ }
+
+    found = cur->next;
+    cur->next = cur->next->next;
+    found->next = temp;
+    *windows = found;
+    return *windows;
+
 }
 
-static void freeList(node** windows){
-    if((*windows)==NULL){return;}
-    node* temp = *windows;
-    while((temp)->next != NULL){
+void freeList(node** windows)
+{
+    node* temp;
+    while((*windows) != NULL)
+    {
+        temp = *windows;
         *windows = (*windows)-> next;
         free(temp);
-        temp = NULL;
-        temp = *windows;
     }
-    free(temp);
-    temp = NULL;
 }
